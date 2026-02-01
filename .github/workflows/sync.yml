@@ -1,0 +1,25 @@
+name: Sync to Firebase
+
+on:
+  push:
+    branches:
+      - main  # 當 main 分支有變動時執行
+  workflow_dispatch: # 允許你手動點擊執行
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run sync script
+        run: python sync_to_firebase.py
